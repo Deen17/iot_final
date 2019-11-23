@@ -17,14 +17,14 @@ int redPin = 6;
 int greenPin = 8; 
 int bluePin = 7; 
 
-const char* home_ssid = "Jonos WiFI";    //  your network SSID (name)
+const char* home_ssid = "Jonos WiFi";    //  your network SSID (name)
 const char* password = "password";  // your network password
 
 int BuzzerPin = 9;
 int SensorPin = A2;
 
 int PosToBeSaved = 0; // Variable used to navigate the array of saved networks
-int daily_amount_of_food = 12; // The amount of food per day needed to survive
+int daily_amount_of_food = 6; // The amount of food per day needed to survive
 int sleeping_time = 1800000; // 30 min *60 sec *1000 millisec 
 
 bool atHome = false;
@@ -36,7 +36,7 @@ unsigned int localPort = 2390;      // local port to listen for UDP packets
 IPAddress timeServer(129, 6, 15, 28); // time.nist.gov NTP server
 const int NTP_PACKET_SIZE = 48; // NTP time stamp is in the first 48 bytes of the message
 byte packetBuffer[ NTP_PACKET_SIZE]; //buffer to hold incoming and outgoing packets
-const int GMT = 1 * 60 * 60; //change this to adapt it to your time zone   hours*minutes*seconds
+const int GMT = -5 * 60 * 60; //change this to adapt it to your time zone   hours*minutes*seconds
 
 unsigned long epoch;
 
