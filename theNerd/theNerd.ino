@@ -25,7 +25,7 @@ int SensorPin = A2;
 
 int PosToBeSaved = 0; // Variable used to navigate the array of saved networks
 int daily_amount_of_food = 3; // The amount of food per day needed to survive
-int sleeping_time = 1800000; // 30 min *60 sec *1000 millisec 
+int sleeping_time = 3000; // 30 min *60 sec *1000 millisec 
 
 bool atHome = false;
 bool hungry=true;
@@ -53,10 +53,10 @@ FlashStorage(my_flash_store, Networks);
 Networks values;
 
 void setup() {
-
   Serial.begin(115200);
   delay(2000);
-  
+  SOS();
+  Serial.println("Setup");
   pinMode(redPin, OUTPUT); 
   pinMode(greenPin, OUTPUT); 
   pinMode(bluePin, OUTPUT); 
@@ -82,7 +82,8 @@ void setup() {
 }
 
 void loop() {
-  
+  delay(1000);
+  Serial.println("Loop");
   int SensorValue=analogRead(SensorPin);
 
   // Awaking notification
@@ -146,17 +147,19 @@ void loop() {
   else if(!atHome && !hungry){
     Serial.println("Take me home to sleep");
   }
-  
+
+  Serial.println("Entering led part");
   // Set color status feedback
-  if(PosToBeSaved >= 8){ // if starving show red
-  setColor(255, 0, 0); // Red 
+  if(PosToBeSaved >= 3){ // if full show green
+    setColor(0, 255, 0); // G 
   }
-  else if(PosToBeSaved > 4 && PosToBeSaved < 8){
-  setColor(255, 255, 0); // yellow 
+  else if(PosToBeSaved > 1 && PosToBeSaved < 3){
+    setColor(255, 255, 0); // yellow 
   }
   else{ 
-  setColor(0, 255, 0); // green 
+    setColor(255,0,0); // red
   }
+  delay(1000);
   
 }
 
