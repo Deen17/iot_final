@@ -1,4 +1,6 @@
 {
     "programmer": "AVRISP mkII",
-    "board": "arduino:samd:mkr1000"
+    "board": "arduino:samd:mkr1000",
+    "port": "COM8",
+    "sketch": "theNerd.ino"
 }

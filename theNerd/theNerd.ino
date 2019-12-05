@@ -55,7 +55,6 @@ Networks values;
 void setup() {
   Serial.begin(115200);
   delay(2000);
-  SOS();
   Serial.println("Setup");
   pinMode(redPin, OUTPUT); 
   pinMode(greenPin, OUTPUT); 
@@ -98,7 +97,8 @@ void loop() {
  }
  
    // Check if the Nerd has been fed within 2 days
-  if(rtc.getEpoch() - values.last_time_feeded >= 86400*2){ // 86400 is the number of seconds in one day
+  Serial.println("last time eaten check");
+  if(rtc.getEpoch() - values.last_time_feeded >= 60){ // 86400 is the number of seconds in one day
     // DIE :(
     SOS();
     values.alive_days = 0 ;
