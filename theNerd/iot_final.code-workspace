@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"C_Cpp.default.includePath": ["C:\\Users\\adilr\\Documents\\Arduino\\libraries"],
+		"arduino.defaultBaudRate": 115200,
+		"C_Cpp.intelliSenseEngine": "Tag Parser",
+		"C_Cpp.default.browse.path": [
+			"${workspaceFolder}",
+			"C:\\Users\\adilr\\Documents\\Arduino\\libraries"
+		]
+	}
+}
