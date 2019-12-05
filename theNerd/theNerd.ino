@@ -10,7 +10,7 @@ WiFiUDP Udp;
 RTCZero rtc;
 
 #define MAGIC_NUMBER 0x7423  // arbitrary number to double check the validity of SSID
-#define MaxNet 30  // max amount of network to be saved 
+#define MaxNet 10  // max amount of network to be saved 
 
 // RGB LED pins 
 int redPin = 6; 
@@ -24,7 +24,7 @@ int BuzzerPin = 9;
 int SensorPin = A2;
 
 int PosToBeSaved = 0; // Variable used to navigate the array of saved networks
-int daily_amount_of_food = 6; // The amount of food per day needed to survive
+int daily_amount_of_food = 3; // The amount of food per day needed to survive
 int sleeping_time = 1800000; // 30 min *60 sec *1000 millisec 
 
 bool atHome = false;
@@ -36,7 +36,7 @@ unsigned int localPort = 2390;      // local port to listen for UDP packets
 IPAddress timeServer(129, 6, 15, 28); // time.nist.gov NTP server
 const int NTP_PACKET_SIZE = 48; // NTP time stamp is in the first 48 bytes of the message
 byte packetBuffer[ NTP_PACKET_SIZE]; //buffer to hold incoming and outgoing packets
-const int GMT = -5 * 60 * 60; //change this to adapt it to your time zone   hours*minutes*seconds
+const int GMT = 1 * 60 * 60; //change this to adapt it to your time zone   hours*minutes*seconds
 
 unsigned long epoch;
 
@@ -124,12 +124,15 @@ void loop() {
     int networks_already_saved = PosToBeSaved; 
     
     getNetwork();
+    Serial.println("Got networks");
     
     // compare the two values and complain if no new network is detected
     if (networks_already_saved == PosToBeSaved) SOS(); 
     
     if(PosToBeSaved >= daily_amount_of_food) hungry=false; // check if had enough food
+    if(!hungry) Serial.println("Fed");
     if(SensorValue < 30)  LowPower.sleep(sleeping_time); // snooze if dark
+    else Serial.println("Too bright to sleep");
   }
   else if(atHome && !hungry) {
     Serial.println("back to sleep");
@@ -137,7 +140,11 @@ void loop() {
   }
   else if(atHome && hungry){
     if(SensorValue < 30)  LowPower.sleep(sleeping_time); // back to sleep if it's dark
+    Serial.println("At home and hungry");
     SOS();
+  }
+  else if(!atHome && !hungry){
+    Serial.println("Take me home to sleep");
   }
   
   // Set color status feedback
